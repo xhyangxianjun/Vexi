@@ -55,6 +55,7 @@ GlasswareDetectSystem::GlasswareDetectSystem(QWidget *parent, Qt::WFlags flags)
 	for (int i = 0; i < 256; i++)  
 	{  
 		m_vcolorTable.append(qRgb(i, i, i)); 
+		m_modle[i] = 0 ;
 	}
 	imgTime = 0;
 	uniqueFlag = false;
@@ -101,6 +102,9 @@ void GlasswareDetectSystem::Init()
 
 	CLogFile::write(tr("Enter system!"),OperationLog);
 	InitLastData();
+
+	initCan();
+	CreateThread(NULL,0,CountSendModle,0,0,0);
 }
 //初始化
 void GlasswareDetectSystem::Initialize()
@@ -191,8 +195,6 @@ void GlasswareDetectSystem::GrabCallBack(const s_GBSIGNALINFO *SigInfo)
 		}
 		m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast = m_cMachioneSignalCurrent.m_iImageCount;
 		//m_mutexGlasswareNumber.unlock();
-
-			
 	}
 	
 	try
@@ -278,7 +280,6 @@ void GlasswareDetectSystem::GrabCallBack(const s_GBSIGNALINFO *SigInfo)
 				pGrabElement->nGrabImageCount = m_sRealCamInfo[iRealCameraSN].m_iImageGrabbedNo;
 				pGrabElement->nSignalNo = m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast;
 				m_detectElement[iRealCameraSN].iSignalNoNormal = pGrabElement->nSignalNo; 
-				pGrabElement->nStation = 1;
 
 
  				m_detectElement[iRealCameraSN].ImageNormal = pGrabElement;
@@ -1512,7 +1513,7 @@ void GlasswareDetectSystem::slots_UpdateCoderNumber()
 		{
 			if ((nSignNum - m_sRunningInfo.m_kickoutNumber > 0) && (nSignNum - m_sRunningInfo.m_kickoutNumber < 50))
 			{
-				m_sRunningInfo.m_failureNumFromIOcard = m_sRunningInfo.m_failureNumFromIOcard + nSignNum - m_sRunningInfo.m_kickoutNumber;
+				//m_sRunningInfo.m_failureNumFromIOcard = m_sRunningInfo.m_failureNumFromIOcard + nSignNum - m_sRunningInfo.m_kickoutNumber;
 			}
 			m_sRunningInfo.m_kickoutNumber = nSignNum;
 		}
@@ -1521,7 +1522,7 @@ void GlasswareDetectSystem::slots_UpdateCoderNumber()
 			int nIOCard1Checked = pMainFrm->m_vIOCard[0]->ReadCounter(0);
 			if (nIOCard1Checked > pMainFrm->m_sRunningInfo.m_iLastIOCard1IN0)
 			{
-				pMainFrm->m_sRunningInfo.m_checkedNum += nIOCard1Checked - pMainFrm->m_sRunningInfo.m_iLastIOCard1IN0;
+				//pMainFrm->m_sRunningInfo.m_checkedNum += nIOCard1Checked - pMainFrm->m_sRunningInfo.m_iLastIOCard1IN0;
 			}
 			pMainFrm->m_sRunningInfo.m_iLastIOCard1IN0 = nIOCard1Checked;
 		}
@@ -2365,6 +2366,7 @@ bool GlasswareDetectSystem::GetPicData(int NumTmp,int k)
 		return false;
 	}
 }
+
 void GlasswareDetectSystem::InitLastData()
 {
 	QSettings LoadLastData(SaveDataPath,QSettings::IniFormat);
@@ -2398,4 +2400,101 @@ void GlasswareDetectSystem::InitLastData()
 	strSession=QString("HeadCount/3");
 	MaxRate=LoadLastData.value(strSession,0).toDouble();
 	
+}
+void GlasswareDetectSystem::SendModleToVEXI(int imageNumber,int modleNumber)
+{
+	char TempTxBuf[20];
+	BYTE B0=0;
+	BYTE P1=1;
+	char *endptr;
+	PacketStruct CANTx;
+	CANTx.mode = 1;//1表示29位，0表示11位
+	CANTx.id = strtoul("10F82F81",&endptr,16);//ID固定
+	CANTx.rtr = (BYTE)strtol("0",&endptr,16);
+	CANTx.len = (BYTE)strtol("8",&endptr,16);//表示传输8个数据
+	_itoa_s(imageNumber,TempTxBuf,16);
+	CANTx.data[0] = (BYTE)strtol(TempTxBuf,&endptr,16);
+	CANTx.data[1] = (BYTE)strtol("4",&endptr,16);
+	CANTx.data[2] = (BYTE)strtol("0",&endptr,16);
+	CANTx.data[3] = (BYTE)strtol("0",&endptr,16);//0表示有结果 1表示没有结果
+	_itoa_s(modleNumber,TempTxBuf,16);
+	CANTx.data[4] = (BYTE)strtol(TempTxBuf,&endptr,16);//模号pAlgCheckResult->nMouldID
+	CANTx.data[5] = (BYTE)strtol("0",&endptr,16);
+	CANTx.data[6] = (BYTE)strtol("0",&endptr,16);
+	CANTx.data[7] = (BYTE)strtol("0",&endptr,16);
+	//Sleep(1000);
+	int ret=CAN_SendMsg(B0, P1, &CANTx);
+	if(ret)
+	{
+		CLogFile::write(tr("CAN_SendMsg failed "),AbnormityLog);
+	}
+}
+void GlasswareDetectSystem::initCan()
+{
+	BYTE B0=0;
+	BYTE P1=1;
+	int ret = CAN_ActiveBoard(B0);
+	if(ret)
+	{
+		CLogFile::write(tr("CAN_ActiveBoard failed "),AbnormityLog);
+	}
+	ret = CAN_Reset(B0,P1);
+	if(ret)
+	{
+		CLogFile::write(tr("CAN_Reset failed "),AbnormityLog);
+	}
+	ret = CAN_Init(B0,P1);
+	if(ret)
+	{
+		CLogFile::write(tr("CAN_Init failed "),AbnormityLog);
+	}
+	ConfigStruct CanConfig;
+	//PacketStruct CANTx,CANRx;
+	for(int i=0;i<=3;i++)
+	{
+		CanConfig.AccCode[i] = 0;
+		CanConfig.AccMask[i] = 0xff;
+	}
+	CanConfig.BaudRate = 8;
+	ret = CAN_Config(B0,P1,&CanConfig);
+	if(ret)
+	{
+		CLogFile::write(tr("CAN_Config failed "),AbnormityLog);
+	}
+	ret = CAN_InstallIrq(B0);
+	if(ret)
+	{
+		CLogFile::write(tr("CAN_InstallIrq failed "),AbnormityLog);
+	}
+	double SystemFreq =(double)CAN_GetSystemFreq();
+	if (SystemFreq == 0)
+	{
+		CLogFile::write(tr("CAN_GetSystemFreq failed "),AbnormityLog);
+	}
+}
+DWORD GlasswareDetectSystem::CountSendModle(void* param)
+{
+	int LastScount = 0;
+	while(!pMainFrm->m_bIsThreadDead)
+	{
+		if(pMainFrm->m_sSystemInfo.m_bIsIOCardOK)
+		{
+			int tempScount = pMainFrm->m_vIOCard[0]->ReadCounter(7);
+			if(tempScount != LastScount)
+			{
+				int tempSignal = pMainFrm->m_vIOCard[0]->ReadImageSignal(30);
+				if(pMainFrm->m_modle[tempSignal] != 0)
+				{
+					pMainFrm->SendModleToVEXI(tempSignal,pMainFrm->m_modle[tempSignal]);
+					pMainFrm->m_modle[tempSignal] = 0;
+					LastScount = tempScount;
+				}
+			}else{
+				Sleep(10);
+			}
+		}else{
+			Sleep(200);
+		}
+	}
+	return true;
 }

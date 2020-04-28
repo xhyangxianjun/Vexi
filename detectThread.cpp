@@ -136,7 +136,6 @@ void DetectThread::DetectNormal(CGrabElement* pElement)
 			upDateState(pElement->myImage,pElement->nSignalNo,pElement->dCostTime, pElement->nMouldID,pElement->cErrorRectList,pElement->initID);
 		}
 	}
-	pElement->nStation = 0;
 }
 void DetectThread::DetectStress(CGrabElement *pElement)
 {
@@ -209,7 +208,6 @@ void DetectThread::DetectStress(CGrabElement *pElement)
 	{
 		upDateState(pElement->myImage,shownSignalNo,shownCostTime,pElement->nMouldID, pElement->cErrorRectList, pElement->initID);
 	}
-	pElement->nStation = 0;
 }
 
 void DetectThread::WaitThreadStop()
@@ -284,7 +282,12 @@ bool DetectThread::getCheckResult(CGrabElement *pElement)
 	{
 		return false;
 	}
-	GetModelDotData(pElement);
+	if(pMainFrm->m_sRunningInfo.m_bCheck)
+	{
+		GetModelDotData(pElement);
+	}
+	return true;
+
 	if (pAlgCheckResult->nSizeError >0 && pMainFrm->m_sRunningInfo.m_bIsCheck[iCamera]) //有错误并且此相机未关闭检测
 	{
 		//连续剔瓶统计
@@ -357,10 +360,10 @@ bool DetectThread::getCheckResult(CGrabElement *pElement)
 				}
 			}
 		}	
-		if (bCheckResult[iCamera])
+		/*if (bCheckResult[iCamera])
 		{
 			pMainFrm->m_sRunningInfo.m_iCamContinueReject[iCamera]++;
-		}
+		}*/
 
 		iErrorType = iMaxErrorType;
 		//取样
@@ -399,9 +402,20 @@ bool DetectThread::getCheckResult(CGrabElement *pElement)
 void DetectThread::GetModelDotData(CGrabElement *pElement)
 {
 	pElement->nMouldID = pAlgCheckResult->nMouldID;
-	if (pAlgCheckResult->nMouldID>0)
+	if(pMainFrm->m_sRunningInfo.m_bCheck)
 	{
-		pMainFrm->m_sRunningInfo.nModelReadFailureNumber++;
+		if (pAlgCheckResult->nMouldID>0)
+		{
+			pMainFrm->m_sRunningInfo.nModelReadFailureNumber++;
+			pMainFrm->m_modle[pElement->nSignalNo] = pElement->nMouldID;//保存模号数据
+			//SendModleToVEXI(pElement->nSignalNo,pElement->nMouldID);//发送模号数据
+		}
+		//pMainFrm->m_sRunningInfo.nModelReadFailureNumber++;
+		//SendModleToVEXI(pElement->nSignalNo,pElement->nMouldID);//发送模号数据
+		//pMainFrm->m_modle[pElement->nSignalNo] = pElement->nMouldID;
+		//pMainFrm->m_modle[pElement->nSignalNo] = pElement->nSignalNo;
+		//存储模号数据
+		pMainFrm->m_sRunningInfo.m_checkedNum++;
 	}
 }
 void DetectThread::kickOutBad(int nSignalNo)
@@ -438,7 +452,7 @@ void DetectThread::kickOutBad(int nSignalNo)
 	}
 	if(grabImageCount == pMainFrm->m_sRealCamInfo[iCamera].m_iImageTargetNo)
 	{
-		KickOut(nSignalNo, m_lastResult, 0);
+		//KickOut(nSignalNo, m_lastResult, 0);
 		m_lastResult=0;
 	}
 }
@@ -651,56 +665,9 @@ void DetectThread::upDateState( QImage* myImage, int signalNo,double costTime,in
 	}else{
 		result = pMainFrm->m_sErrorInfo.m_vstrErrorType.at(iErrorType);
 	}
-	
-	if(pMainFrm->number_camera!=-1)
-	{
-		emit signals_upDateCamera(iCamera,1 );
-		emit signals_updateActiveImg(iCamera,signalNo,costTime,iErrorType);//更新剪切的图像显示
-		emit signals_updateImage(myImage, camera, imageSN, time, result, nMouldID,listErrorRectList, QueenID);
-	}else{
-		if(isShowPicture[signalNo]==0)
-		{
-			isShowPicture[signalNo]=1;
-			emit signals_upDateCamera(iCamera,1 );
-			if(pMainFrm->widget_carveSetting->image_widget->bIsCarveWidgetShow)
-			{
-				emit signals_updateActiveImg(iCamera,signalNo,costTime,iErrorType);//更新剪切的图像显示
-			}
-			emit signals_updateImage(myImage, camera, imageSN, time, result, nMouldID,listErrorRectList, QueenID);
-
-			if (pMainFrm->m_sRunningInfo.m_checkedNum != 0)
-			{
-				pMainFrm->m_sRunningInfo.m_iErrorCamRate[iCamera] = 1.0*pMainFrm->m_sRunningInfo.m_iErrorCamCount[iCamera]/pMainFrm->m_sRunningInfo.m_checkedNum * 100;
-			}
-			else
-			{
-				pMainFrm->m_sRunningInfo.m_iErrorCamRate[iCamera] = 0;
-			}
-			emit signals_updateCameraFailureRate();
-		}
-		if(pAlgCheckResult->nSizeError >0&&isShowPicture[signalNo]!=2)
-		{
-			isShowPicture[signalNo]=2;
-			emit signals_upDateCamera(iCamera,1 );
-			if(pMainFrm->widget_carveSetting->image_widget->bIsCarveWidgetShow==false)
-			{
-				emit signals_updateActiveImg(iCamera,signalNo,costTime,iErrorType);//更新剪切的图像显示
-			}
-			emit signals_updateImage(myImage, camera, imageSN, time, result, nMouldID,listErrorRectList, QueenID);
-
-			if (pMainFrm->m_sRunningInfo.m_checkedNum != 0)
-			{
-				pMainFrm->m_sRunningInfo.m_iErrorCamRate[iCamera] = 1.0*pMainFrm->m_sRunningInfo.m_iErrorCamCount[iCamera]/pMainFrm->m_sRunningInfo.m_checkedNum * 100;
-			}
-			else
-			{
-				pMainFrm->m_sRunningInfo.m_iErrorCamRate[iCamera] = 0;
-			}
-			emit signals_updateCameraFailureRate();
-		}
-	}
-	QImage temp=QImage(*myImage);
-	emit signals_updateMaxImageItem(temp,camera,imageSN,time,result,nMouldID,listErrorRectList,QueenID,grabImageCount);
+	emit signals_upDateCamera(iCamera,1 );
+	emit signals_updateActiveImg(iCamera,signalNo,costTime,iErrorType);//更新剪切的图像显示
+	emit signals_updateImage(myImage, camera, imageSN, time, result, nMouldID,listErrorRectList, QueenID);
 }
 
 void DetectThread::CountRuningData( int cameraNumber,int nGrabImageCount )

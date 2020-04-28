@@ -106,6 +106,10 @@ public:
 	bool GetPicData(int,int);
 	void InitLastData();
 	void InitCheckSet();
+
+	static DWORD WINAPI CountSendModle(void*);
+	void SendModleToVEXI(int imageNumber,int modleNumber);
+	void initCan();
 signals:
 	void signals_intoInfoWidget();
 	void signals_intoCarveSettingWidget();
@@ -288,6 +292,7 @@ public:
 	double MaxRate;
 	double MinRate;
 	QList<time_t> AertNumber[ERRORTYPE_MAX_COUNT];
+	int m_modle[256];
 };
 
 #endif // GLASSWAREDETECTSYSTEM_H

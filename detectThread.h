@@ -3,6 +3,7 @@
 
 #include <QThread>
 #include "stateTool.h"
+#include "can.h"
 #pragma once 
 
 class DetectThread : public QThread
