@@ -1,7 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'widget_test.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.5
+** Created: Fri Nov 6 10:17:26 2020
+**      by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -79,12 +80,7 @@ public:
     QVBoxLayout *verticalLayout_19;
     QHBoxLayout *horizontalLayout_28;
     QCheckBox *checkBox_CameraOffLine;
-    QLabel *label_MissNumber;
-    QSpinBox *spinBox_OffLineNumber;
     QHBoxLayout *horizontalLayout_30;
-    QCheckBox *checkBox_CameraContinueReject;
-    QLabel *label_rejectNumber;
-    QSpinBox *spinBox_RejectNo;
     QWidget *widget_StatisErrorType_4;
     QGridLayout *gridLayout_25;
     QGridLayout *layoutStatisErrorType_4;
@@ -545,54 +541,11 @@ public:
 
         horizontalLayout_28->addWidget(checkBox_CameraOffLine);
 
-        label_MissNumber = new QLabel(widget_CameraSurveillance);
-        label_MissNumber->setObjectName(QString::fromUtf8("label_MissNumber"));
-        label_MissNumber->setMinimumSize(QSize(150, 0));
-        label_MissNumber->setMaximumSize(QSize(150, 16777215));
-        label_MissNumber->setFont(font);
-
-        horizontalLayout_28->addWidget(label_MissNumber);
-
-        spinBox_OffLineNumber = new QSpinBox(widget_CameraSurveillance);
-        spinBox_OffLineNumber->setObjectName(QString::fromUtf8("spinBox_OffLineNumber"));
-        spinBox_OffLineNumber->setMinimumSize(QSize(100, 0));
-        spinBox_OffLineNumber->setMaximumSize(QSize(100, 16777215));
-        spinBox_OffLineNumber->setFont(font);
-        spinBox_OffLineNumber->setMinimum(1);
-        spinBox_OffLineNumber->setMaximum(999);
-        spinBox_OffLineNumber->setValue(10);
-
-        horizontalLayout_28->addWidget(spinBox_OffLineNumber);
-
 
         verticalLayout_19->addLayout(horizontalLayout_28);
 
         horizontalLayout_30 = new QHBoxLayout();
         horizontalLayout_30->setObjectName(QString::fromUtf8("horizontalLayout_30"));
-        checkBox_CameraContinueReject = new QCheckBox(widget_CameraSurveillance);
-        checkBox_CameraContinueReject->setObjectName(QString::fromUtf8("checkBox_CameraContinueReject"));
-
-        horizontalLayout_30->addWidget(checkBox_CameraContinueReject);
-
-        label_rejectNumber = new QLabel(widget_CameraSurveillance);
-        label_rejectNumber->setObjectName(QString::fromUtf8("label_rejectNumber"));
-        label_rejectNumber->setMinimumSize(QSize(150, 0));
-        label_rejectNumber->setMaximumSize(QSize(150, 16777215));
-        label_rejectNumber->setFont(font);
-
-        horizontalLayout_30->addWidget(label_rejectNumber);
-
-        spinBox_RejectNo = new QSpinBox(widget_CameraSurveillance);
-        spinBox_RejectNo->setObjectName(QString::fromUtf8("spinBox_RejectNo"));
-        spinBox_RejectNo->setMinimumSize(QSize(100, 0));
-        spinBox_RejectNo->setMaximumSize(QSize(100, 16777215));
-        spinBox_RejectNo->setFont(font);
-        spinBox_RejectNo->setMinimum(1);
-        spinBox_RejectNo->setMaximum(999);
-        spinBox_RejectNo->setValue(10);
-
-        horizontalLayout_30->addWidget(spinBox_RejectNo);
-
 
         verticalLayout_19->addLayout(horizontalLayout_30);
 
@@ -1915,9 +1868,6 @@ public:
         pushButton->setText(QApplication::translate("WidgetTest", "\347\206\204\347\201\255\346\212\245\350\255\246\347\201\257", 0, QApplication::UnicodeUTF8));
         btnOK_Statis->setText(QApplication::translate("WidgetTest", "Save", 0, QApplication::UnicodeUTF8));
         checkBox_CameraOffLine->setText(QApplication::translate("WidgetTest", "CameraOffLine", 0, QApplication::UnicodeUTF8));
-        label_MissNumber->setText(QApplication::translate("WidgetTest", "MissNumber:", 0, QApplication::UnicodeUTF8));
-        checkBox_CameraContinueReject->setText(QApplication::translate("WidgetTest", "CameraContinueReject", 0, QApplication::UnicodeUTF8));
-        label_rejectNumber->setText(QApplication::translate("WidgetTest", "RejectNumber:", 0, QApplication::UnicodeUTF8));
         btnOK_CameraSurveillance->setText(QApplication::translate("WidgetTest", "Save", 0, QApplication::UnicodeUTF8));
         checkBox_saveFailureNormalImage->setText(QApplication::translate("WidgetTest", "SaveFailureNormalImage", 0, QApplication::UnicodeUTF8));
         checkBox_saveFailureStressImage->setText(QApplication::translate("WidgetTest", "SaveFailureStressImage", 0, QApplication::UnicodeUTF8));

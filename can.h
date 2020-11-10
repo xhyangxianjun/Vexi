@@ -24,6 +24,8 @@
 #define BYTE unsigned char
 #endif
 
+BYTE B0 = 0;
+BYTE P1 = 1,P2 = 2;
 
 //====================
 #define CAN_NoError                    0

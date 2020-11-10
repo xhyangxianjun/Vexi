@@ -80,7 +80,8 @@ enum e_CurrentMainPage
 	CountPage,
 	AlgPage,
 	PLCPage,
-	DeBugPage
+	DeBugPage,
+	Ellipticity
 };
 
 enum e_ToolButton	

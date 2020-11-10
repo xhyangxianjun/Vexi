@@ -41,7 +41,7 @@
 //timegettime头文件 
 #include <Mmsystem.h>
 #pragma comment( lib,"winmm.lib" )
-
+#include "widget_Ellipticity.h"
 class QThreadBaseClean : public QThread
 {
 	Q_OBJECT
@@ -106,16 +106,13 @@ public:
 	bool GetPicData(int,int);
 	void InitLastData();
 	void InitCheckSet();
-
-	static DWORD WINAPI CountSendModle(void*);
-	void SendModleToVEXI(int imageNumber,int modleNumber);
-	void initCan();
 signals:
 	void signals_intoInfoWidget();
 	void signals_intoCarveSettingWidget();
 	void signals_intoManagementWidget();
 	void signals_intoTestWidget();
 	void signals_intoPLCWidget();
+	void signals_intoEllipticityWidget();
 	void signals_intoCountWidget();
 	void signals_intoDebugWidget();
 	void signals_MessageBoxMainThread(s_MSGBoxInfo);	//通知主线程弹出提示对话框
@@ -179,6 +176,7 @@ public:
 	Widget_PLC *widget_PLC;
 	QWidget *widget_alg;
 	WidgetWarning *widget_Warning;
+	WidgetEllipticity *widget_ellipticity;
 	QString skin_name;						//主窗口背景图片的名称
 	QPixmap skin;
 	//状态栏控件
@@ -292,7 +290,7 @@ public:
 	double MaxRate;
 	double MinRate;
 	QList<time_t> AertNumber[ERRORTYPE_MAX_COUNT];
-	int m_modle[256];
+	int isShowPicture[256];//图片是否显示
 };
 
 #endif // GLASSWAREDETECTSYSTEM_H

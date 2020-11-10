@@ -43,7 +43,7 @@ WidgetTitle::WidgetTitle(QWidget *parent)
 
 	QStringList string_list;
 	string_list<<":/toolWidget/bottle"<<":/toolWidget/home"<<":/toolWidget/count"<<":/toolWidget/bottle"<<":/toolWidget/management"\
-		<<":/toolWidget/set"<<":/toolWidget/algset"<<":/toolWidget/PLC"<<":/toolWidget/algset"<<":/toolWidget/algset"\
+		<<":/toolWidget/set"<<":/toolWidget/algset"<<":/toolWidget/PLC"<<":/toolWidget/Ellipticity"<<":/toolWidget/algset"\
 		<<":/toolWidget/algset"<<":/toolWidget/clear"<<":/toolWidget/start"<<":/toolWidget/exit"\
 		<<":/toolWidget/debug";//工具按钮图片链表 
 
@@ -89,7 +89,8 @@ WidgetTitle::WidgetTitle(QWidget *parent)
 	{
  		button_list.at(7)->setVisible(false);
 	}
-	button_list.at(8)->setVisible(false);
+	//8作为模号显示
+	button_list.at(8)->setVisible(true);
 	button_list.at(9)->setVisible(false);
 	button_list.at(10)->setVisible(false);
 }
@@ -110,7 +111,7 @@ void WidgetTitle::addToolName()
 	button_list.at(5)->setText(tr("Test"));
 	button_list.at(6)->setText(tr("Algorithm set"));
 	button_list.at(7)->setText(tr("PLC Info"));
-	button_list.at(8)->setText(tr("Other"));
+	button_list.at(8)->setText(QString::fromLocal8Bit("椭圆度"));
 	button_list.at(9)->setText(tr("Other"));
 	button_list.at(10)->setText(tr("Other"));
 	button_list.at(11)->setText(tr("Clear"));

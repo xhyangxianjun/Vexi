@@ -141,7 +141,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;QT_DLL;QT_QT3SUPPORT_LIB;QT3_SUPPORT;QWT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;F:\4.8.2_64\include\qwt;F:\4.8.2_64\include;.\GeneratedFiles\$(ConfigurationName);F:\4.8.2_64\include\Qt3Support;.\;E:\x64\Inc;F:\4.8.2_64\include\QtGui;F:\4.8.2_64\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;E:\4.8.2_64\include\qwt;E:\4.8.2_64\include;.\GeneratedFiles\$(ConfigurationName);E:\4.8.2_64\include\Qt3Support;.\;D:\x64\Inc;E:\4.8.2_64\include\QtGui;E:\4.8.2_64\include\QtCore;D:\GlasswareDetectSystem-VEXI-2.1.1.2\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
@@ -151,8 +151,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>F:\4.8.2_64\lib;E:\x64\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>E:\4.8.2_64\lib;D:\x64\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>qtmain.lib;qwt.lib;QtCore4.lib;QtGui4.lib;Qt3Support4.lib;comdlg32.lib;QtSql4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(TargetDir)$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
@@ -169,10 +169,6 @@
     <ClCompile Include="CombineResult.cpp" />
     <ClCompile Include="countset.cpp" />
     <ClCompile Include="dhbasewidget.cpp" />
-    <ClCompile Include="GeneratedFiles\Debug\moc_CameraOffLineMonitor.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_camerasatuslabel.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -253,6 +249,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_widget_Ellipticity.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_widget_errortype.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -292,10 +292,6 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_widget_title.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_CameraOffLineMonitor.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_camerasatuslabel.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -377,6 +373,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_widget_Ellipticity.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_widget_errortype.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -417,6 +417,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="mycameralabel.cpp" />
     <ClCompile Include="MyHistogram.cpp" />
     <ClCompile Include="myimageshowitem.cpp" />
     <ClCompile Include="MyLogText.cpp" />
@@ -431,6 +432,7 @@
     <ClCompile Include="Widget_CameraPosition.cpp" />
     <ClCompile Include="widget_count.cpp" />
     <ClCompile Include="widget_debug.cpp" />
+    <ClCompile Include="widget_Ellipticity.cpp" />
     <ClCompile Include="widget_errortype.cpp" />
     <ClCompile Include="widget_pie.cpp" />
     <ClCompile Include="Widget_CarveImage.cpp" />
@@ -521,7 +523,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -587,7 +589,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="UserManegeWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -605,7 +607,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widget_count.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -623,7 +625,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widgetwarning.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -641,7 +643,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widget_plc.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -659,7 +661,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widget_debug.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -677,7 +679,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widget_camera.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -695,7 +697,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widget_errortype.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -713,7 +715,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widget_pie.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -731,7 +733,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widget_test.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -749,7 +751,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widget_title.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -767,7 +769,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widget_sample.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -785,7 +787,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widget_mycellwidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -803,7 +805,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widget_info.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -821,7 +823,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="cmygraphicsview.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -839,7 +841,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="cmyerrorlist.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -891,7 +893,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="camerasatuslabel.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -909,7 +911,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="cdetectspeed.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -927,7 +929,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="countset.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -945,7 +947,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="cerrorimagelist.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -963,7 +965,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="chistogram.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -981,25 +983,33 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="CameraOffLineMonitor.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing CameraOffLineMonitor.h...</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing CameraOffLineMonitor.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQWT_DLL -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I."</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQWT_DLL -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I." "-IE:\x64\Inc"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing CameraOffLineMonitor.h...</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing CameraOffLineMonitor.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </Command>
     </CustomBuild>
     <CustomBuild Include="GeneratedFiles\ui_countset.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -1107,7 +1117,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="GeneratedFiles\ui_Widget_CameraPosition.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -1185,7 +1195,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="GeneratedFiles\ui_Widget_userManege.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -1263,7 +1273,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="myimageshowitem.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -1281,7 +1291,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="mytableview.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -1299,7 +1309,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="timescaledraw.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -1347,7 +1357,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="Widget_CarveImage.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -1365,7 +1375,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="Widget_CarveInfo.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -1383,7 +1393,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="detectThread.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -1401,7 +1411,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="CIOCard.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -1419,7 +1429,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="clogFile.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -1467,7 +1477,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="CombineResult.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -1875,7 +1885,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
     <CustomBuild Include="widget_image.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -1893,7 +1903,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IF:\4.8.2_64\include\qwt" "-IF:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IF:\4.8.2_64\include\Qt3Support" "-I." "-IE:\x64\Inc" "-IF:\4.8.2_64\include\QtGui" "-IF:\4.8.2_64\include\QtCore"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -2314,6 +2324,48 @@
       </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </AdditionalInputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Widget_Ellipticity.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_Widget_Ellipticity.h" />
+    <ClInclude Include="mycameralabel.h" />
+    <CustomBuild Include="widget_Ellipticity.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing widget_Ellipticity.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQWT_DLL -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I."</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing widget_Ellipticity.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQWT_DLL -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I." "-IE:\x64\Inc"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing widget_Ellipticity.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include\qwt" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\Qt3Support" "-I.\..\..\inc" "-I." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing widget_Ellipticity.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DQT_DLL -DQT_QT3SUPPORT_LIB -DQT3_SUPPORT -DQWT_DLL  "-I.\GeneratedFiles" "-I." "-IE:\4.8.2_64\include\qwt" "-IE:\4.8.2_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IE:\4.8.2_64\include\Qt3Support" "-I." "-ID:\x64\Inc" "-IE:\4.8.2_64\include\QtGui" "-IE:\4.8.2_64\include\QtCore" "-ID:\GlasswareDetectSystem-VEXI-2.1.1.2\Include"</Command>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

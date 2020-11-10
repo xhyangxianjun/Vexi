@@ -394,14 +394,20 @@
     <ClCompile Include="CameraOffLineMonitor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_CameraOffLineMonitor.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_CameraOffLineMonitor.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="SingleCameraPic.cpp">
       <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="widget_Ellipticity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_widget_Ellipticity.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_widget_Ellipticity.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="mycameralabel.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -627,8 +633,22 @@
     <CustomBuild Include="SingleCameraPic.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="Widget_Ellipticity.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="widget_Ellipticity.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GlasswareDetectSystem.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_Widget_Ellipticity.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mycameralabel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

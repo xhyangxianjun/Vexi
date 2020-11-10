@@ -568,6 +568,7 @@ void Widget_CarveImage::slots_save()
 
 	pMainFrm->m_mutexmCarve.lock();
 	pMainFrm->InitCamImage(iCarvedCamNum);
+	pMainFrm->widget_ellipticity->InitImage();
 	pMainFrm->m_mutexmCarve.unlock();
 
  	for (int i = 0; i < pMainFrm->m_sSystemInfo.iCamCount; i++)
@@ -1561,7 +1562,7 @@ void Widget_CarveImage::slots_setToCamera()
 
 	int iShuterTime = pWidgetCarveInfo->ui.spinBox_exposureTime->text().toInt();
 	int iTriggerType = pWidgetCarveInfo->ui.comboBox_triggerType->currentIndex();
-	pMainFrm->m_mutexmGrab.lock();
+	//pMainFrm->m_mutexmGrab.lock();
 
 	pMainFrm->m_sRealCamInfo[iCameraSN].m_iShuter = iShuterTime;
 	pMainFrm->m_sRealCamInfo[iCameraSN].m_iTrigger = iTriggerType;
@@ -1585,7 +1586,7 @@ void Widget_CarveImage::slots_setToCamera()
 		//((CDHGrabberMER*)pMainFrm->m_sRealCamInfo[iCameraSN].m_pGrabber)->MERSetParamInt(MERExposure,iShuterTime);
 	}
 
-	pMainFrm->m_mutexmGrab.unlock();
+	//pMainFrm->m_mutexmGrab.unlock();
 	
 	QSettings iniCameraSet(pMainFrm->m_sConfigInfo.m_strGrabInfoPath,QSettings::IniFormat);
 	QString strShuter,strTrigger;

@@ -304,7 +304,7 @@ typedef struct _SystemInfo
 	double fPressScale;			//瓶身应力增强系数
 	double fBasePressScale;		//瓶底应力增强系数
 
-// 	bool bCameraOffLineSurveillance;
+ 	bool bCameraOffLineSurveillance;
 // 	bool bCameraContinueRejectSurveillance;
 // 
 // 	int iCamOfflineNo;
@@ -353,7 +353,7 @@ typedef struct _SystemInfo
 		fPressScale = 1;
 		fBasePressScale = 1;
 
-// 		bCameraOffLineSurveillance = false;
+ 		bCameraOffLineSurveillance = false;
 // 		bCameraContinueRejectSurveillance = false;
 // 
 // 		iCamOfflineNo = 1;

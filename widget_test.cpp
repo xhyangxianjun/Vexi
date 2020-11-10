@@ -75,6 +75,9 @@ WidgetTest::WidgetTest(QWidget *parent)
 	ui.btnChoseErrorType->setVisible(false);
 	timerUpdateIOCardCounter = new QTimer(this);
 	timerUpdateIOCardCounter->setInterval(100);//每毫秒刷新一次计数
+	CameraOffAreet = new QTimer(this);
+	CameraOffAreet->setInterval(10000);
+	connect(CameraOffAreet, SIGNAL(timeout()), this, SLOT(slots_CameraOffAreet()));
  	connect(timerUpdateIOCardCounter, SIGNAL(timeout()), this, SLOT(slots_updateIOcardCounter()));   
 	bIsShowStatisErrorType = false;
 	ui.widget_StatisErrorType->setVisible(false);
@@ -88,7 +91,10 @@ WidgetTest::WidgetTest(QWidget *parent)
 	ui.label_alarmInterval->setText(QString::fromLocal8Bit("换班报警间隔(m):"));
 	ui.comboBox_StatisMode->insertItem(3,QString::fromLocal8Bit("按踢废率统计"));
 	connect(kickOutTimer, SIGNAL(timeout()), this, SLOT(slots_CheckIsSendKickOut()));
-
+	if(pMainFrm->m_sSystemInfo.bCameraOffLineSurveillance)
+	{
+		CameraOffAreet->start();
+	}
 
 }
 WidgetTest::~WidgetTest()
@@ -113,7 +119,7 @@ void WidgetTest::slots_intoWidget()
 // 	ui.spinBox_MinRate->setValue(pMainFrm->m_sSystemInfo.m_iTrackAlertRateMin[0]);
 	slots_StatisModeChanged(pMainFrm->m_sSystemInfo.m_iIsTrackStatistics);
 
-// 	ui.checkBox_CameraOffLine->setChecked(pMainFrm->m_sSystemInfo.bCameraOffLineSurveillance);
+ 	ui.checkBox_CameraOffLine->setChecked(pMainFrm->m_sSystemInfo.bCameraOffLineSurveillance);
 // 	ui.checkBox_CameraContinueReject->setChecked(pMainFrm->m_sSystemInfo.bCameraContinueRejectSurveillance);
 // 	ui.spinBox_OffLineNumber->setValue(pMainFrm->m_sSystemInfo.iCamOfflineNo);
 // 	ui.spinBox_RejectNo->setValue(pMainFrm->m_sSystemInfo.iCamContinueRejectNumber);
@@ -721,20 +727,56 @@ void WidgetTest::slots_OKStatis()
 }
 void WidgetTest::slots_OKCameraSurveillance()
 {
-// 	pMainFrm->m_sSystemInfo.bCameraOffLineSurveillance = ui.checkBox_CameraOffLine->isChecked();
+ 	pMainFrm->m_sSystemInfo.bCameraOffLineSurveillance = ui.checkBox_CameraOffLine->isChecked();
 // 	pMainFrm->m_sSystemInfo.bCameraContinueRejectSurveillance = ui.checkBox_CameraContinueReject->isChecked();
 // 	pMainFrm->m_sSystemInfo.iCamOfflineNo = ui.spinBox_OffLineNumber->value();
 // 	pMainFrm->m_sSystemInfo.iCamContinueRejectNumber = ui.spinBox_RejectNo->value();
 
 // 
-// 	QSettings iniStatisSet(pMainFrm->m_sConfigInfo.m_strConfigPath,QSettings::IniFormat);
-// 	iniStatisSet.setIniCodec(QTextCodec::codecForName("GBK"));
-// 
+ 	QSettings iniStatisSet(pMainFrm->m_sConfigInfo.m_strConfigPath,QSettings::IniFormat);
+ 	iniStatisSet.setIniCodec(QTextCodec::codecForName("GBK")); 
+	if(ui.checkBox_CameraOffLine->isChecked())
+	{
+		iniStatisSet.setValue("/system/bCameraOffLineSurveillance",1);
+	}else{
+		iniStatisSet.setValue("/system/bCameraOffLineSurveillance",0);
+	}
 // 	iniStatisSet.setValue("/system/bCameraOffLineSurveillance",pMainFrm->m_sSystemInfo.bCameraOffLineSurveillance);
 // 	iniStatisSet.setValue("/system/bCameraContinueRejectSurveillance",pMainFrm->m_sSystemInfo.bCameraContinueRejectSurveillance);	
 // 	iniStatisSet.setValue("/system/iCamOfflineNo",pMainFrm->m_sSystemInfo.iCamOfflineNo);
 // 	iniStatisSet.setValue("/system/iCamContinueRejectNumber",pMainFrm->m_sSystemInfo.iCamContinueRejectNumber);
+	if(ui.checkBox_CameraOffLine->isChecked())
+	{
+		CameraOffAreet->start();
+	}else{
+		CameraOffAreet->stop();
+	}
+}
+void WidgetTest::slots_CameraOffAreet()
+{
+	for(int i=0;i < pMainFrm->m_sSystemInfo.iRealCamCount;i++)
+	{
+		if(pMainFrm->struGrabCardPara[i].strDeviceName != "MER")
+		{
+			continue;
+		}
+		int temp = 0;
+		bool ret = true;
+		try
+		{
+			ret = ((CDHGrabberMER*)pMainFrm->m_sRealCamInfo[i].m_pGrabber)->MERGetParamInt(MERExposure,temp,temp,temp);
+		}
+		catch(...)
+		{
 
+		}
+		if(!ret)
+		{
+			QMessageBox::information(this,tr("Error"),QString::fromLocal8Bit("相机%1掉线!").arg(i+1));
+			pMainFrm->m_vIOCard[0]->TestOutPut(6);
+			return;
+		}
+	}
 }
 void WidgetTest::slots_OK()
 { 

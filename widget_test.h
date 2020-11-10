@@ -50,7 +50,7 @@ public:
 	QString CompareDoubleString(QString);
 public slots:
 	void slots_intoWidget();
-
+	void slots_CameraOffAreet();
 	void slots_ChoseCamera();
 	void slots_ChoseErrorType();
 	void slots_OKSave();
@@ -160,6 +160,7 @@ public:
 	int iStatisMaxTime[ERRORTYPE_MAX_COUNT];
 	int iStatisMaxNumber[ERRORTYPE_MAX_COUNT];
 	int iIsTrackErrorType[ERRORTYPE_MAX_COUNT];	
+	QTimer* CameraOffAreet;
 };
 
 #endif // TESTWIDGET_H

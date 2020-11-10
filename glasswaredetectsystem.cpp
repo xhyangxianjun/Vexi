@@ -55,7 +55,6 @@ GlasswareDetectSystem::GlasswareDetectSystem(QWidget *parent, Qt::WFlags flags)
 	for (int i = 0; i < 256; i++)  
 	{  
 		m_vcolorTable.append(qRgb(i, i, i)); 
-		m_modle[i] = 0 ;
 	}
 	imgTime = 0;
 	uniqueFlag = false;
@@ -102,9 +101,6 @@ void GlasswareDetectSystem::Init()
 
 	CLogFile::write(tr("Enter system!"),OperationLog);
 	InitLastData();
-
-	initCan();
-	CreateThread(NULL,0,CountSendModle,0,0,0);
 }
 //初始化
 void GlasswareDetectSystem::Initialize()
@@ -168,11 +164,10 @@ void GlasswareDetectSystem::GrabCallBack(const s_GBSIGNALINFO *SigInfo)
 			}
 			if (m_sRealCamInfo[iRealCameraSN].m_iImageGrabbedNo >= m_sRealCamInfo[iRealCameraSN].m_iImageTargetNo)
 			{
-				m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast++;
+				//m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast++;
 				m_sRealCamInfo[iRealCameraSN].m_iImageGrabbedNo = 0;
 			}
 			m_sRealCamInfo[iRealCameraSN].m_iImageGrabbedNo++;
-			
 			if (m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast >= 256)
 			{
 				m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast = 0;
@@ -186,14 +181,17 @@ void GlasswareDetectSystem::GrabCallBack(const s_GBSIGNALINFO *SigInfo)
 		
 		if (m_cMachioneSignalCurrent.m_iImageCount != m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast)
 		{
-			m_sRealCamInfo[iRealCameraSN].m_iImageGrabbedNo = 0;
-			
+			m_sRealCamInfo[iRealCameraSN].m_iImageGrabbedNo = 1;
+			m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast = m_cMachioneSignalCurrent.m_iImageCount;
 		}
 		else
 		{
+			if(m_sRealCamInfo[iRealCameraSN].m_iImageGrabbedNo == m_sRealCamInfo[iRealCameraSN].m_iImageTargetNo)
+			{
+				m_sRealCamInfo[iRealCameraSN].m_iImageGrabbedNo = 0;
+			}
 			m_sRealCamInfo[iRealCameraSN].m_iImageGrabbedNo++;
 		}
-		m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast = m_cMachioneSignalCurrent.m_iImageCount;
 		//m_mutexGlasswareNumber.unlock();
 	}
 	
@@ -206,7 +204,7 @@ void GlasswareDetectSystem::GrabCallBack(const s_GBSIGNALINFO *SigInfo)
 		uchar* pImageRo = NULL;
 		int nAddr = 0;
 		int nWidth, nHeight, nBitCount;
-		m_mutexmGrab.lock();
+		//m_mutexmGrab.lock();
 		m_sRealCamInfo[iRealCameraSN].m_pGrabber->GetParamInt(GBImageBufferAddr, nAddr);
 		pImageBuffer = (uchar*)nAddr;
 		m_sRealCamInfo[iRealCameraSN].m_pGrabber->GetParamInt(GBImageWidth, nWidth);
@@ -224,71 +222,67 @@ void GlasswareDetectSystem::GrabCallBack(const s_GBSIGNALINFO *SigInfo)
 		{
 			memcpy(m_sRealCamInfo[iRealCameraSN].m_pRealImage->bits(),pImageBuffer,lImageSize);//pixmapShow = QPixmap::fromImage(tempImg);
 		}
-		m_mutexmGrab.unlock();
+		//m_mutexmGrab.unlock();
 		//pImageBuffer = (uchar*)m_sRealCamInfo[iRealCameraSN].m_pRealImage->bits();	
 		//*****************************************************************/
 //		CLogFile::write(tr("get image Camera Number %1, image number: %2").arg(iRealCameraSN).arg(m_sRealCamInfo[iRealCameraSN].m_iLastTriggerSignalCount),AbnormityLog);
-		if (VexiFinishButtom == m_sSystemInfo.m_iSystemType || VexiButtom == m_sSystemInfo.m_iSystemType)
+		CGrabElement *pGrabElement = NULL;
+		m_queue[iRealCameraSN].mLocker.lock();
+		if(m_queue[iRealCameraSN].listGrab.size()<=0)
 		{
-			CGrabElement *pGrabElement = NULL;
-			m_queue[iRealCameraSN].mLocker.lock();
-			if(m_queue[iRealCameraSN].listGrab.size()<=0)
+			m_queue[iRealCameraSN].mLocker.unlock();
+			return;
+		}
+			
+		pGrabElement = (CGrabElement *) m_queue[iRealCameraSN].listGrab.first();
+		m_queue[iRealCameraSN].listGrab.removeFirst();
+		m_queue[iRealCameraSN].mLocker.unlock();
+		if (pGrabElement != NULL)
+		{	
+			pGrabElement->nCamSN = iRealCameraSN;
+			pGrabElement->nCheckRet = FALSE;
+			pGrabElement->cMachineInfoOfAllElement = m_cMachioneSignalCurrent;
+			pGrabElement->cErrorParaList.clear();
+			lImageSize = m_sCarvedCamInfo[iRealCameraSN].m_iImageWidth * m_sCarvedCamInfo[iRealCameraSN].m_iImageHeight * (nBitCount/8);
+
+			//m_iImgGrabCounter[iRealCameraSN]++;
+				
+			m_mutexmCarve.lock();
+			//剪切图像
+			CarveImage(m_sRealCamInfo[iRealCameraSN].m_pRealImage->bits(),m_sCarvedCamInfo[iRealCameraSN].m_pGrabTemp,\
+				m_sRealCamInfo[iRealCameraSN].m_iImageWidth,m_sRealCamInfo[iRealCameraSN].m_iImageHeight, m_sCarvedCamInfo[iRealCameraSN].i_ImageX,m_sCarvedCamInfo[iRealCameraSN].i_ImageY,\
+				m_sCarvedCamInfo[iRealCameraSN].m_iImageWidth,m_sCarvedCamInfo[iRealCameraSN].m_iImageHeight);
+
+			if (lImageSize != pGrabElement->myImage->byteCount())
 			{
-				m_queue[iRealCameraSN].mLocker.unlock();
+				delete []pGrabElement->sImgLocInfo.sXldPoint.nColsAry;
+				delete []pGrabElement->sImgLocInfo.sXldPoint.nRowsAry;
+				delete pGrabElement->myImage;
+				m_mutexmCarve.unlock();
+				CLogFile::write(tr("get %1 failed").arg(iRealCameraSN),AbnormityLog);
 				return;
 			}
-			
-			pGrabElement = (CGrabElement *) m_queue[iRealCameraSN].listGrab.first();
-			m_queue[iRealCameraSN].listGrab.removeFirst();
-			m_queue[iRealCameraSN].mLocker.unlock();
-			if (pGrabElement != NULL)
-			{	
-				pGrabElement->nCamSN = iRealCameraSN;
-				pGrabElement->nCheckRet = FALSE;
-				pGrabElement->cMachineInfoOfAllElement = m_cMachioneSignalCurrent;
-				pGrabElement->cErrorParaList.clear();
-				lImageSize = m_sCarvedCamInfo[iRealCameraSN].m_iImageWidth * m_sCarvedCamInfo[iRealCameraSN].m_iImageHeight * (nBitCount/8);
-
-				m_iImgGrabCounter[iRealCameraSN]++;
-				
-				m_mutexmCarve.lock();
-				//剪切图像
-				CarveImage(m_sRealCamInfo[iRealCameraSN].m_pRealImage->bits(),m_sCarvedCamInfo[iRealCameraSN].m_pGrabTemp,\
-					m_sRealCamInfo[iRealCameraSN].m_iImageWidth,m_sRealCamInfo[iRealCameraSN].m_iImageHeight, m_sCarvedCamInfo[iRealCameraSN].i_ImageX,m_sCarvedCamInfo[iRealCameraSN].i_ImageY,\
-					m_sCarvedCamInfo[iRealCameraSN].m_iImageWidth,m_sCarvedCamInfo[iRealCameraSN].m_iImageHeight);
-
-				if (lImageSize != pGrabElement->myImage->byteCount())
-				{
-					delete []pGrabElement->sImgLocInfo.sXldPoint.nColsAry;
-					delete []pGrabElement->sImgLocInfo.sXldPoint.nRowsAry;
-					delete pGrabElement->myImage;
-					m_mutexmCarve.unlock();
-					return;
-				}
-				memcpy(pGrabElement->myImage->bits(), m_sCarvedCamInfo[iRealCameraSN].m_pGrabTemp, \
-					m_sCarvedCamInfo[iRealCameraSN].m_iImageWidth*m_sCarvedCamInfo[iRealCameraSN].m_iImageHeight);
+			memcpy(pGrabElement->myImage->bits(), m_sCarvedCamInfo[iRealCameraSN].m_pGrabTemp, \
+				m_sCarvedCamInfo[iRealCameraSN].m_iImageWidth*m_sCarvedCamInfo[iRealCameraSN].m_iImageHeight);
 
 				//QString temps=QString("D:\\temp\\")+QString::number(pGrabElement->nSignalNo)+"_"+QString::number(m_sRealCamInfo[iRealCameraSN].m_iImageGrabbedNo)+".bmp";
 				//pGrabElement->myImage->save(temps);
 				m_mutexmCarve.unlock();
 
-				//memcpy(pGrabElement->myImage->bits(), m_sRealCamInfo[iRealCameraSN].m_pRealImage->bits(),m_sCarvedCamInfo[iRealCameraSN].m_iImageWidth*m_sCarvedCamInfo[iRealCameraSN].m_iImageHeight*(nBitCount/8));			
-				//将图像数据填人到元素队列中
-				//m_sRealCamInfo[iRealCameraSN].m_iGrabImageCount++;
-				pGrabElement->bHaveImage=TRUE;
-				pGrabElement->nImgSN = m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast;
-				pGrabElement->nGrabImageCount = m_sRealCamInfo[iRealCameraSN].m_iImageGrabbedNo;
-				pGrabElement->nSignalNo = m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast;
-				m_detectElement[iRealCameraSN].iSignalNoNormal = pGrabElement->nSignalNo; 
+			//memcpy(pGrabElement->myImage->bits(), m_sRealCamInfo[iRealCameraSN].m_pRealImage->bits(),m_sCarvedCamInfo[iRealCameraSN].m_iImageWidth*m_sCarvedCamInfo[iRealCameraSN].m_iImageHeight*(nBitCount/8));			
+			//将图像数据填人到元素队列中
+			//m_sRealCamInfo[iRealCameraSN].m_iGrabImageCount++;
+			pGrabElement->bHaveImage=TRUE;
+			pGrabElement->nImgSN = m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast;
+			pGrabElement->nGrabImageCount = m_sRealCamInfo[iRealCameraSN].m_iImageGrabbedNo;
+			pGrabElement->nSignalNo = m_sRealCamInfo[iRealCameraSN].m_iImageIdxLast;
+			m_detectElement[iRealCameraSN].iSignalNoNormal = pGrabElement->nSignalNo; 
 
-
- 				m_detectElement[iRealCameraSN].ImageNormal = pGrabElement;
- 				m_detectElement[iRealCameraSN].iCameraNormal = iRealCameraSN;
-				m_detectElement[iRealCameraSN].iType = 1;
- 				mutexListDetect[iRealCameraSN].lock();
-				m_queue[iRealCameraSN].listDetect.append(m_detectElement[iRealCameraSN]);
- 				mutexListDetect[iRealCameraSN].unlock();
-			}
+ 			m_detectElement[iRealCameraSN].ImageNormal = pGrabElement;
+ 			m_detectElement[iRealCameraSN].iCameraNormal = iRealCameraSN;
+ 			mutexListDetect[iRealCameraSN].lock();
+			m_queue[iRealCameraSN].listDetect.append(m_detectElement[iRealCameraSN]);
+ 			mutexListDetect[iRealCameraSN].unlock();
 		}
 	}
 	catch (...)
@@ -456,7 +450,7 @@ void GlasswareDetectSystem::ReadIniInformation()
 	m_sSystemInfo.iIsSampleAndAlamConflict = iniset.value("/system/IsSampleAndAlamConflict",0).toInt();
 	m_sSystemInfo.m_iIs3Sensor = iniset.value("/system/Is3Sensor",0).toInt();
 
-// 	m_sSystemInfo.bCameraOffLineSurveillance = iniset.value("/system/bCameraOffLineSurveillance",1).toBool();	
+ 	m_sSystemInfo.bCameraOffLineSurveillance = iniset.value("/system/bCameraOffLineSurveillance",1).toBool();	
 // 	m_sSystemInfo.bCameraContinueRejectSurveillance = iniset.value("/system/bCameraContinueRejectSurveillance",1).toBool();	
 // 	m_sSystemInfo.iCamOfflineNo = iniset.value("/system/iCamOfflineNo",10).toInt();	
 // 	m_sSystemInfo.iCamContinueRejectNumber = iniset.value("/system/iCamContinueRejectNumber",10).toInt();	
@@ -796,7 +790,7 @@ void GlasswareDetectSystem::InitCam()
 {
 	for(int i = 0; i < m_sSystemInfo.iRealCamCount; i++)
 	{
-		m_mutexmGrab.lock();
+		//m_mutexmGrab.lock();
 		if(m_sRealCamInfo[i].m_iGrabType == 1)
 		{
 			if(m_sRealCamInfo[i].m_iTrigger == 1)
@@ -831,7 +825,7 @@ void GlasswareDetectSystem::InitCam()
 			}
 			((CDHGrabberMER*)m_sRealCamInfo[i].m_pGrabber)->MERSetParamInt(MERExposure,m_sRealCamInfo[i].m_iShuter);
 		}
-		m_mutexmGrab.unlock();
+		//m_mutexmGrab.unlock();
 	}
 }
 //初始化图像（：读取切割信息:初始化图像队列和剪切后相机参数）
@@ -1244,6 +1238,8 @@ void GlasswareDetectSystem::initInterface()
 	widgetInfoContainer = new QWidget();
 	info_widget = new widget_info(widgetInfoContainer);
 	widget_UserManege = new UserManegeWidget(widgetInfoContainer);
+	widget_ellipticity = new WidgetEllipticity;
+
 	QHBoxLayout *layoutWidgetInfoContainer = new QHBoxLayout(widgetInfoContainer);
 	layoutWidgetInfoContainer->addWidget(widget_UserManege);
 	layoutWidgetInfoContainer->addWidget(info_widget);
@@ -1271,6 +1267,7 @@ void GlasswareDetectSystem::initInterface()
 	statked_widget->addWidget(widgetManagement);
 	statked_widget->addWidget(test_widget);
 	statked_widget->addWidget(widget_count);
+	statked_widget->addWidget(widget_ellipticity);
 	if (m_sSystemInfo.m_bIsUsePLC)
 	{
 		statked_widget->addWidget(widget_PLC);
@@ -1324,7 +1321,7 @@ void GlasswareDetectSystem::initInterface()
 
 	labelCoder = new QLabel(stateBar);
 	labelVersin=new QLabel(stateBar);
-	labelVersin->setText(tr("  V:1.32.1.9"));
+	labelVersin->setText(tr("  V:1.64.1.11"));
 	labelCoder->setText(tr("Signal Status"));
 	labelPLC = new QLabel(stateBar);
 	labelPLC->setText(tr("PLC Status"));
@@ -1394,7 +1391,8 @@ void GlasswareDetectSystem::initInterface()
 // 	connect(this,SIGNAL(signals_intoPLCWidget()),widget_PLC,SLOT(slots_intoWidget()));	
 	connect(this,SIGNAL(signals_clear()),widget_count,SLOT(slots_ClearCountInfo()));	
 	connect(this,SIGNAL(signals_intoDebugWidget()),widget_Debug,SLOT(slots_intoWidget()));	
-	connect(this,SIGNAL(signals_intoPLCWidget()),widget_PLC,SLOT(slots_intoWidget()));	
+	connect(this,SIGNAL(signals_intoPLCWidget()),widget_PLC,SLOT(slots_intoWidget()));
+	connect(this,SIGNAL(signals_intoEllipticityWidget()),widget_ellipticity,SLOT(slots_intoWidget()));
 	connect(this,SIGNAL(signals_ShowWarning(int , QString )),widget_Warning,SLOT(slots_ShowWarning(int , QString )));	
 	connect(this,SIGNAL(signals_HideWarning(int)),widget_Warning,SLOT(slots_HideWarning(int)));	
 
@@ -1506,14 +1504,14 @@ void GlasswareDetectSystem::slots_UpdateCoderNumber()
 		nSignNum = m_vIOCard[0]->ReadCounter(4);
 		}*/
 		//nSignNum = m_vIOCard[0]->ReadCounter(IoCard);//天恒车间测试用的回流读取in2
-		nSignNum = m_vIOCard[0]->ReadCounter(0);//荣泰用的out0来计数 basler发送踢废信号就计数
+		nSignNum = m_vIOCard[0]->ReadCounter(4);//荣泰用的out0来计数 basler发送踢废信号就计数
 		m_vIOCard[0]->m_mutexmIOCard.unlock();
 		pMainFrm->m_sRunningInfo.m_mutexRunningInfo.lock();
 		if(pMainFrm->number_camera == -1)
 		{
 			if ((nSignNum - m_sRunningInfo.m_kickoutNumber > 0) && (nSignNum - m_sRunningInfo.m_kickoutNumber < 50))
 			{
-				//m_sRunningInfo.m_failureNumFromIOcard = m_sRunningInfo.m_failureNumFromIOcard + nSignNum - m_sRunningInfo.m_kickoutNumber;
+				m_sRunningInfo.m_failureNumFromIOcard = m_sRunningInfo.m_failureNumFromIOcard + nSignNum - m_sRunningInfo.m_kickoutNumber;
 			}
 			m_sRunningInfo.m_kickoutNumber = nSignNum;
 		}
@@ -1522,7 +1520,7 @@ void GlasswareDetectSystem::slots_UpdateCoderNumber()
 			int nIOCard1Checked = pMainFrm->m_vIOCard[0]->ReadCounter(0);
 			if (nIOCard1Checked > pMainFrm->m_sRunningInfo.m_iLastIOCard1IN0)
 			{
-				//pMainFrm->m_sRunningInfo.m_checkedNum += nIOCard1Checked - pMainFrm->m_sRunningInfo.m_iLastIOCard1IN0;
+				pMainFrm->m_sRunningInfo.m_checkedNum += nIOCard1Checked - pMainFrm->m_sRunningInfo.m_iLastIOCard1IN0;
 			}
 			pMainFrm->m_sRunningInfo.m_iLastIOCard1IN0 = nIOCard1Checked;
 		}
@@ -1534,22 +1532,21 @@ void GlasswareDetectSystem::slots_UpdateCoderNumber()
 	strEncoder = QString(tr("Coder Number")+":%1").arg(nCodeNum);
 	strTime = QTime::currentTime().toString();
 //	labelCoder->setText(strTime);
-	if(m_sSystemInfo.m_iSystemType == 0)
-	{
-		labelCoder->setText(strCounter + " " +strEncoder + " "+ strTime);
-	}
-	else
-	{
-		labelCoder->setText(strEncoder + " "+ strTime);
-
-	}
 	//计算模点失败率并显示
 	double num = 0.00;
 	if (m_sRunningInfo.m_checkedNum != 0)
 	{
 		num = ((double)m_sRunningInfo.nModelReadFailureNumber / m_sRunningInfo.m_checkedNum) * 100;
 	}
-	labelUnknowMoldNumber->setText(QString::fromLocal8Bit("读模率: %1%").arg(QString::number(num,10, 2)));
+	if(m_sSystemInfo.m_iSystemType == 0)
+	{
+		labelCoder->setText(strCounter + " " +strEncoder + " "+ strTime);
+	}
+	else
+	{
+		labelCoder->setText(QString::fromLocal8Bit("速度:%1    ").arg(m_sRunningInfo.strSpeed) +QString::fromLocal8Bit("读模率: %1%   ").arg(QString::number(num,10, 2))+strEncoder + " "+ strTime);
+	}
+	labelUnknowMoldNumber->setVisible(false);
 }
 void GlasswareDetectSystem::slots_updateCameraState(int nCam,int mode)
 {
@@ -1681,6 +1678,12 @@ void GlasswareDetectSystem::slots_turnPage(int current_page, int iPara)
 		CLogFile::write(tr("Into PLC page"),OperationLog,0);
 		break;
 	case 8:
+		m_eCurrentMainPage = Ellipticity;
+		//emit signals_intoEllipticityWidget();
+		statked_widget->setCurrentWidget(widget_ellipticity);
+		m_eLastMainPage = m_eCurrentMainPage;
+		iLastPage = 8;
+		CLogFile::write(tr("Into Mode page"),OperationLog,0);
 		break;
 	case 9:
 		break;
@@ -1813,7 +1816,7 @@ void GlasswareDetectSystem::slots_OnBtnStart()
 			}
 			for (int i = 0;i<=m_sSystemInfo.iRealCamCount;i++)
 			{
-				m_sRealCamInfo[i].m_iImageIdxLast = 0;
+				m_sRealCamInfo[i].m_iImageIdxLast = -1;
 			}
 			
 			m_sRunningInfo.m_bCheck = true;
@@ -1867,7 +1870,7 @@ void GlasswareDetectSystem::slots_OnBtnStart()
 			}
 		}
 		
-		m_sRunningInfo.m_iLastIOCard1IN0=0;
+		//m_sRunningInfo.m_iLastIOCard1IN0=0;
 	}
 }
 
@@ -2296,7 +2299,7 @@ void GlasswareDetectSystem::InitCamImage(int iCameraNo)
 		//分配元素链表中图像的内存，每剪切出来的相机10个。
 		// 			CLogFile::write(tr("分配元素链表中图像的内存！%1").arg(iCarvedCamNum),OperationLog);
 		m_queue[i].mLocker.lock();
-		m_queue[i].InitQueue(m_sCarvedCamInfo[i].m_iImageWidth, m_sCarvedCamInfo[i].m_iImageHeight,m_sCarvedCamInfo[i].m_iImageBitCount, 100, true);
+		m_queue[i].InitQueue(m_sCarvedCamInfo[i].m_iImageWidth, m_sCarvedCamInfo[i].m_iImageHeight,m_sCarvedCamInfo[i].m_iImageBitCount,100, true);
 		m_queue[i].mLocker.unlock();
 	}
 	SetCarvedCamInfo();
@@ -2357,15 +2360,6 @@ void GlasswareDetectSystem::mousePressEvent(QMouseEvent *event)
 {  
 	time(&info_widget->tLastOperaTime);
 }
-bool GlasswareDetectSystem::GetPicData(int NumTmp,int k)
-{
-	if(NumTmp%k==0)
-	{
-		return true;
-	}else{
-		return false;
-	}
-}
 
 void GlasswareDetectSystem::InitLastData()
 {
@@ -2382,119 +2376,21 @@ void GlasswareDetectSystem::InitLastData()
 			strSession = QString("DefaultTypeCount/EveryLine%1").arg(j);
 			int yLineTemp=LoadLastData.value(strSession,0).toInt();
 
-			strSession = QString("DefaultTypeCount/EveryNumber%1%2").arg(xRowTemp).arg(yLineTemp);
+			strSession = QString("DefaultTypeCount/EveryNumber%1_%2").arg(xRowTemp).arg(yLineTemp);
 			m_sRunningInfo.m_cErrorTypeInfo[xRowTemp].iErrorCountByType[yLineTemp]=LoadLastData.value(strSession,0).toInt();
 			m_sRunningInfo.m_iErrorTypeCount[j]+=m_sRunningInfo.m_cErrorTypeInfo[xRowTemp].iErrorCountByType[yLineTemp];
 			m_sRunningInfo.m_iErrorCamCount[i]+=m_sRunningInfo.m_cErrorTypeInfo[xRowTemp].iErrorCountByType[yLineTemp];
 		}
 	}
-	strSession=QString("HeadCount/0");
+	strSession=QString("HeadCount/AllCheckNumber");
 	m_sRunningInfo.m_checkedNum=LoadLastData.value(strSession,0).toInt();
 
-	strSession=QString("HeadCount/1");
+	strSession=QString("HeadCount/AllFailNumber");
 	m_sRunningInfo.m_failureNumFromIOcard=LoadLastData.value(strSession,0).toInt();
 
-	strSession=QString("HeadCount/2");
+	strSession=QString("HeadCount/minRate");
 	MinRate=LoadLastData.value(strSession,0).toDouble();
 
-	strSession=QString("HeadCount/3");
+	strSession=QString("HeadCount/MaxRate");
 	MaxRate=LoadLastData.value(strSession,0).toDouble();
-	
-}
-void GlasswareDetectSystem::SendModleToVEXI(int imageNumber,int modleNumber)
-{
-	char TempTxBuf[20];
-	BYTE B0=0;
-	BYTE P1=1;
-	char *endptr;
-	PacketStruct CANTx;
-	CANTx.mode = 1;//1表示29位，0表示11位
-	CANTx.id = strtoul("10F82F81",&endptr,16);//ID固定
-	CANTx.rtr = (BYTE)strtol("0",&endptr,16);
-	CANTx.len = (BYTE)strtol("8",&endptr,16);//表示传输8个数据
-	_itoa_s(imageNumber,TempTxBuf,16);
-	CANTx.data[0] = (BYTE)strtol(TempTxBuf,&endptr,16);
-	CANTx.data[1] = (BYTE)strtol("4",&endptr,16);
-	CANTx.data[2] = (BYTE)strtol("0",&endptr,16);
-	CANTx.data[3] = (BYTE)strtol("0",&endptr,16);//0表示有结果 1表示没有结果
-	_itoa_s(modleNumber,TempTxBuf,16);
-	CANTx.data[4] = (BYTE)strtol(TempTxBuf,&endptr,16);//模号pAlgCheckResult->nMouldID
-	CANTx.data[5] = (BYTE)strtol("0",&endptr,16);
-	CANTx.data[6] = (BYTE)strtol("0",&endptr,16);
-	CANTx.data[7] = (BYTE)strtol("0",&endptr,16);
-	//Sleep(1000);
-	int ret=CAN_SendMsg(B0, P1, &CANTx);
-	if(ret)
-	{
-		CLogFile::write(tr("CAN_SendMsg failed "),AbnormityLog);
-	}
-}
-void GlasswareDetectSystem::initCan()
-{
-	BYTE B0=0;
-	BYTE P1=1;
-	int ret = CAN_ActiveBoard(B0);
-	if(ret)
-	{
-		CLogFile::write(tr("CAN_ActiveBoard failed "),AbnormityLog);
-	}
-	ret = CAN_Reset(B0,P1);
-	if(ret)
-	{
-		CLogFile::write(tr("CAN_Reset failed "),AbnormityLog);
-	}
-	ret = CAN_Init(B0,P1);
-	if(ret)
-	{
-		CLogFile::write(tr("CAN_Init failed "),AbnormityLog);
-	}
-	ConfigStruct CanConfig;
-	//PacketStruct CANTx,CANRx;
-	for(int i=0;i<=3;i++)
-	{
-		CanConfig.AccCode[i] = 0;
-		CanConfig.AccMask[i] = 0xff;
-	}
-	CanConfig.BaudRate = 8;
-	ret = CAN_Config(B0,P1,&CanConfig);
-	if(ret)
-	{
-		CLogFile::write(tr("CAN_Config failed "),AbnormityLog);
-	}
-	ret = CAN_InstallIrq(B0);
-	if(ret)
-	{
-		CLogFile::write(tr("CAN_InstallIrq failed "),AbnormityLog);
-	}
-	double SystemFreq =(double)CAN_GetSystemFreq();
-	if (SystemFreq == 0)
-	{
-		CLogFile::write(tr("CAN_GetSystemFreq failed "),AbnormityLog);
-	}
-}
-DWORD GlasswareDetectSystem::CountSendModle(void* param)
-{
-	int LastScount = 0;
-	while(!pMainFrm->m_bIsThreadDead)
-	{
-		if(pMainFrm->m_sSystemInfo.m_bIsIOCardOK)
-		{
-			int tempScount = pMainFrm->m_vIOCard[0]->ReadCounter(7);
-			if(tempScount != LastScount)
-			{
-				int tempSignal = pMainFrm->m_vIOCard[0]->ReadImageSignal(30);
-				if(pMainFrm->m_modle[tempSignal] != 0)
-				{
-					pMainFrm->SendModleToVEXI(tempSignal,pMainFrm->m_modle[tempSignal]);
-					pMainFrm->m_modle[tempSignal] = 0;
-					LastScount = tempScount;
-				}
-			}else{
-				Sleep(10);
-			}
-		}else{
-			Sleep(200);
-		}
-	}
-	return true;
 }

@@ -36,6 +36,7 @@
         <file alias="clear">Resources/toolwidget/Clear.png</file>
         <file alias="debug">Resources/toolwidget/DeBug.png</file>
         <file alias="PLC">Resources/toolwidget/PLC.png</file>
+        <file alias="Ellipticity">Resources/toolwidget/LCamere.png</file>
     </qresource>
     <qresource prefix="/loading">
         <file>Resources/loading.png</file>

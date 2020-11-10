@@ -1,7 +1,6 @@
 #include "DetectThread.h"
 #include <QMessageBox>
 #include "glasswaredetectsystem.h"
-
 extern GlasswareDetectSystem *pMainFrm;
 DetectThread::DetectThread(QObject *parent)
 	: QThread(parent)
@@ -42,6 +41,7 @@ void DetectThread::run()
 		}
 		if (pMainFrm->m_queue[ThreadNumber].listDetect.size()>0)
 		{
+			//CLogFile::write(tr("get 3333"),AbnormityLog);
 			pMainFrm->mutexListDetect[ThreadNumber].lock();
 			DetectElement = pMainFrm->m_queue[ThreadNumber].listDetect.first();
 			pMainFrm->m_queue[ThreadNumber].listDetect.removeFirst();
@@ -114,7 +114,7 @@ void DetectThread::DetectNormal(CGrabElement* pElement)
  	try
  	{
  		//踢废
- 		kickOutBad(pElement->nSignalNo);
+ 		kickOutBad(pElement);
  		//保存图像
  		saveImage(pElement);
  		//将错误图像加入错误链表
@@ -131,11 +131,9 @@ void DetectThread::DetectNormal(CGrabElement* pElement)
 	//刷新图像和状态
 	if (pMainFrm->m_queue[iCamera].InitID == pElement->initID)
 	{
-		if(pMainFrm->m_eLastMainPage==CarveSettingPage||pMainFrm->m_eLastMainPage==InfoPage)
-		{
-			upDateState(pElement->myImage,pElement->nSignalNo,pElement->dCostTime, pElement->nMouldID,pElement->cErrorRectList,pElement->initID);
-		}
+		upDateState(pElement->myImage,pElement->nSignalNo,pElement->dCostTime, pElement->nMouldID,pElement->cErrorRectList,pElement->initID);
 	}
+	//pElement->nStation = 0;
 }
 void DetectThread::DetectStress(CGrabElement *pElement)
 {
@@ -186,7 +184,7 @@ void DetectThread::DetectStress(CGrabElement *pElement)
 	try
 	{
 		//踢废
-		kickOutBad(pElement->nSignalNo);
+		kickOutBad(pElement);
 		//保存图像
 		saveImage(pElement);
 		//将错误图像加入错误链表
@@ -208,6 +206,7 @@ void DetectThread::DetectStress(CGrabElement *pElement)
 	{
 		upDateState(pElement->myImage,shownSignalNo,shownCostTime,pElement->nMouldID, pElement->cErrorRectList, pElement->initID);
 	}
+	//pElement->nStation = 0;
 }
 
 void DetectThread::WaitThreadStop()
@@ -278,16 +277,12 @@ void DetectThread::checkImage(CGrabElement *pElement,int iCheckMode)
 //获取检测结果
 bool DetectThread::getCheckResult(CGrabElement *pElement)
 {
-	if (sReturnStatus.nErrorID != 0)
+	if (sReturnStatus.nErrorID != 0 && sReturnStatus.nErrorID != 10)
 	{
+		//CLogFile::write(tr("get failed!"),AbnormityLog);
 		return false;
 	}
-	if(pMainFrm->m_sRunningInfo.m_bCheck)
-	{
-		GetModelDotData(pElement);
-	}
-	return true;
-
+	GetModelDotData(pElement);
 	if (pAlgCheckResult->nSizeError >0 && pMainFrm->m_sRunningInfo.m_bIsCheck[iCamera]) //有错误并且此相机未关闭检测
 	{
 		//连续剔瓶统计
@@ -314,15 +309,15 @@ bool DetectThread::getCheckResult(CGrabElement *pElement)
 				sErrorPara.nErrorType = pMainFrm->m_sErrorInfo.m_iErrorTypeCount+1;
 			}
 			//	找不到原点不踢废
-			if (1 == sErrorPara.nErrorType&&(1 == pMainFrm->m_sSystemInfo.m_iNoRejectIfNoOrigin[iCamera] || 1 == pMainFrm->m_sSystemInfo.m_NoKickIfNoFind ))
-			{
-				bCheckResult[iCamera] = false;
-			}
-			// 预处理错误不踢废
-			if (2 == sErrorPara.nErrorType&&(1 == pMainFrm->m_sSystemInfo.m_iNoRejectIfROIfail[iCamera] || 1 == pMainFrm->m_sSystemInfo.m_NoKickIfROIFail ))
-			{
-				bCheckResult[iCamera] = false;
-			}			
+			//if (1 == sErrorPara.nErrorType&&(1 == pMainFrm->m_sSystemInfo.m_iNoRejectIfNoOrigin[iCamera] || 1 == pMainFrm->m_sSystemInfo.m_NoKickIfNoFind ))
+			//{
+			//	bCheckResult[iCamera] = false;
+			//}
+			//// 预处理错误不踢废
+			//if (2 == sErrorPara.nErrorType&&(1 == pMainFrm->m_sSystemInfo.m_iNoRejectIfROIfail[iCamera] || 1 == pMainFrm->m_sSystemInfo.m_NoKickIfROIFail ))
+			//{
+			//	bCheckResult[iCamera] = false;
+			//}			
 			if(sErrorPara.nErrorType==39)
 			{
 				bCheckResult[iCamera] = true;
@@ -336,34 +331,24 @@ bool DetectThread::getCheckResult(CGrabElement *pElement)
 
 			//错误类型综合
 			//找不到原点不综合
-			if (1 == sErrorPara.nErrorType&&(1 == pMainFrm->m_sSystemInfo.m_iNoRejectIfNoOrigin[iCamera] || 1 == pMainFrm->m_sSystemInfo.m_NoKickIfNoFind ))
+			/*if (1 == sErrorPara.nErrorType&&(1 == pMainFrm->m_sSystemInfo.m_iNoRejectIfNoOrigin[iCamera] || 1 == pMainFrm->m_sSystemInfo.m_NoKickIfNoFind ))
 			{
-				;
+			;
 			}
 			else if (2 == sErrorPara.nErrorType&&(1 == pMainFrm->m_sSystemInfo.m_iNoRejectIfROIfail[iCamera] || 1 == pMainFrm->m_sSystemInfo.m_NoKickIfROIFail ))
 			{
-				;
+			;
 			}
 			else
 			{
-				if(pMainFrm->m_sCarvedCamInfo[iCamera].m_iIOCardSN == 0)
-				{
-					pMainFrm->m_cCombine.m_MutexCombin.lock();
-					pMainFrm->m_cCombine.AddError(pElement->nSignalNo,iCamera,sErrorPara);
-					pMainFrm->m_cCombine.m_MutexCombin.unlock();
-				}
-				else
-				{
-					pMainFrm->m_cCombine1.m_MutexCombin.lock();
-					pMainFrm->m_cCombine1.AddError(pElement->nSignalNo,iCamera,sErrorPara);
-					pMainFrm->m_cCombine1.m_MutexCombin.unlock();
-				}
-			}
-		}	
-		/*if (bCheckResult[iCamera])
-		{
-			pMainFrm->m_sRunningInfo.m_iCamContinueReject[iCamera]++;
-		}*/
+			pMainFrm->m_cCombine.m_MutexCombin.lock();
+			pMainFrm->m_cCombine.AddError(pElement->nSignalNo,iCamera,sErrorPara);
+			pMainFrm->m_cCombine.m_MutexCombin.unlock();
+			}*/
+			pMainFrm->m_cCombine.m_MutexCombin.lock();
+			pMainFrm->m_cCombine.AddError(pElement->nSignalNo,iCamera,sErrorPara);
+			pMainFrm->m_cCombine.m_MutexCombin.unlock();
+		}
 
 		iErrorType = iMaxErrorType;
 		//取样
@@ -382,18 +367,9 @@ bool DetectThread::getCheckResult(CGrabElement *pElement)
 		s_ErrorPara sErrorPara;
 		sErrorPara.nArea = 0;
 		sErrorPara.nErrorType = 0;
-		if(pMainFrm->m_sCarvedCamInfo[iCamera].m_iIOCardSN == 0)
-		{
-			pMainFrm->m_cCombine.m_MutexCombin.lock();
-			pMainFrm->m_cCombine.AddError(pElement->nSignalNo,iCamera,sErrorPara);
-			pMainFrm->m_cCombine.m_MutexCombin.unlock();
-		}
-		else
-		{
-			pMainFrm->m_cCombine1.m_MutexCombin.lock();
-			pMainFrm->m_cCombine1.AddError(pElement->nSignalNo,iCamera,sErrorPara);
-			pMainFrm->m_cCombine1.m_MutexCombin.unlock();
-		}
+		pMainFrm->m_cCombine.m_MutexCombin.lock();
+		pMainFrm->m_cCombine.AddError(pElement->nSignalNo,iCamera,sErrorPara);
+		pMainFrm->m_cCombine.m_MutexCombin.unlock();
 	}
 	return true;
 }
@@ -402,26 +378,14 @@ bool DetectThread::getCheckResult(CGrabElement *pElement)
 void DetectThread::GetModelDotData(CGrabElement *pElement)
 {
 	pElement->nMouldID = pAlgCheckResult->nMouldID;
-	if(pMainFrm->m_sRunningInfo.m_bCheck)
+	if (pAlgCheckResult->nMouldID>0 && pAlgCheckResult->nMouldID < 100)
 	{
-		if (pAlgCheckResult->nMouldID>0)
-		{
-			pMainFrm->m_sRunningInfo.nModelReadFailureNumber++;
-			pMainFrm->m_modle[pElement->nSignalNo] = pElement->nMouldID;//保存模号数据
-			//SendModleToVEXI(pElement->nSignalNo,pElement->nMouldID);//发送模号数据
-		}
-		//pMainFrm->m_sRunningInfo.nModelReadFailureNumber++;
-		//SendModleToVEXI(pElement->nSignalNo,pElement->nMouldID);//发送模号数据
-		//pMainFrm->m_modle[pElement->nSignalNo] = pElement->nMouldID;
-		//pMainFrm->m_modle[pElement->nSignalNo] = pElement->nSignalNo;
-		//存储模号数据
-		pMainFrm->m_sRunningInfo.m_checkedNum++;
+		pMainFrm->m_sRunningInfo.nModelReadFailureNumber++;
 	}
 }
-void DetectThread::kickOutBad(int nSignalNo)
+void DetectThread::kickOutBad(CGrabElement *pElement)
 {
 	int tmpResult=0;
-
 	int iKickMode = pMainFrm->m_sRunningInfo.m_iKickMode;
 	
 	switch (iKickMode)
@@ -430,7 +394,7 @@ void DetectThread::kickOutBad(int nSignalNo)
 		tmpResult=1;
 		break;
 	case 1:			// 隔瓶踢
-		tmpResult=nSignalNo%2;
+		tmpResult = pElement->nSignalNo%2;
 		break;
 	case 2:			// 持续好
 		tmpResult=0;
@@ -450,10 +414,27 @@ void DetectThread::kickOutBad(int nSignalNo)
 	{
 		m_lastResult=1;
 	}
-	if(grabImageCount == pMainFrm->m_sRealCamInfo[iCamera].m_iImageTargetNo)
+	
+	if(iCamera == pMainFrm->widget_ellipticity->m_CameraStion-1)
 	{
-		//KickOut(nSignalNo, m_lastResult, 0);
-		m_lastResult=0;
+		
+		QImage temp_image(*pElement->myImage);
+		pMainFrm->widget_ellipticity->insertImage(temp_image,pElement->nSignalNo,grabImageCount);
+		
+		//插入椭圆度数据
+		pMainFrm->widget_ellipticity->setData(pAlgCheckResult->sSizeResult.fBodyOvality,grabImageCount);
+		if(grabImageCount == pMainFrm->widget_ellipticity->m_CollectNum)
+		{
+			bool result = pMainFrm->widget_ellipticity->checkData(pMainFrm->widget_ellipticity->m_Templist,pElement->nSignalNo);
+			KickOut(pElement->nSignalNo, result, 0);
+			pMainFrm->widget_ellipticity->clearData();
+		}
+	}else{
+		if(grabImageCount == pMainFrm->m_sRealCamInfo[iCamera].m_iImageTargetNo)
+		{
+			KickOut(pElement->nSignalNo, m_lastResult, 0);
+			m_lastResult=0;
+		}
 	}
 }
 //存图
@@ -475,7 +456,7 @@ void DetectThread::saveImage(CGrabElement *pElement)
 					pMainFrm->writeLogText(tr("Failure in create Path!"),AbnormityLog);
 				}
 			}
-			QString strSavePath = QString(strSaveImagePath + "/image number%1_%2%3%4.bmp").arg(pElement->nImgSN).arg(time.time().hour()).arg(time.time().minute()).arg(time.time().second());
+			QString strSavePath = QString(strSaveImagePath + "/image number%1_%2%3%4_%5.bmp").arg(pElement->nImgSN).arg(time.time().hour()).arg(time.time().minute()).arg(time.time().second()).arg(grabImageCount);
 			pElement->myImage->mirrored().save(strSavePath);
 		}
 	}
@@ -495,7 +476,7 @@ void DetectThread::saveImage(CGrabElement *pElement)
 					pMainFrm->writeLogText(tr("Failure in create Path!"),AbnormityLog);
 				}
 			}
-			QString strSavePath = QString(strSaveImagePath + "/image number%1_%2%3%4.bmp").arg(pElement->nImgSN).arg(time.time().hour()).arg(time.time().minute()).arg(time.time().second());
+			QString strSavePath = QString(strSaveImagePath + "/image number%1_%2%3%4_%5.bmp").arg(pElement->nImgSN).arg(time.time().hour()).arg(time.time().minute()).arg(time.time().second()).arg(grabImageCount);
 			pElement->myImage->mirrored().save(strSavePath);
 		}
 
@@ -519,7 +500,7 @@ void DetectThread::saveImage(CGrabElement *pElement)
 		}
 		if (AllImage == pMainFrm->m_sRunningInfo.m_eSaveImageType)
 		{
-			QString strSavePath = QString(strSaveImagePath + "image number%1_%2%3%4.bmp").arg(pElement->nImgSN).arg(time.hour()).arg(time.minute()).arg(time.second());
+			QString strSavePath = QString(strSaveImagePath + "image number%1_%2%3%4_%5.bmp").arg(pElement->nImgSN).arg(time.hour()).arg(time.minute()).arg(time.second()).arg(grabImageCount);
 			//pElement->myImage.SaveBmpFile(strSavePath.toStdWString().c_str(),pElement->myImage.bitmapInfo(),pElement->myImage.buffAddr());
 			pElement->myImage->mirrored().save(strSavePath);
 		}
@@ -528,7 +509,7 @@ void DetectThread::saveImage(CGrabElement *pElement)
 			pMainFrm->m_sRunningInfo.m_mutexRunningInfo.lock();
 			if (pMainFrm->m_sRunningInfo.m_iSaveImgCount[iCamera] > 0)
 			{
-				QString strSavePath = QString(strSaveImagePath + "image number%1_%2%3%4.bmp").arg(pElement->nImgSN).arg(time.hour()).arg(time.minute()).arg(time.second());
+				QString strSavePath = QString(strSaveImagePath + "image number%1_%2%3%4_%5.bmp").arg(pElement->nImgSN).arg(time.hour()).arg(time.minute()).arg(time.second()).arg(grabImageCount);
 //				pElement->myImage.SaveBmpFile(strSavePath.toStdWString().c_str(),pElement->myImage.bitmapInfo(),pElement->myImage.buffAddr());
 				pElement->myImage->mirrored().save(strSavePath);
 				pMainFrm->m_sRunningInfo.m_iSaveImgCount[iCamera]--;
@@ -570,7 +551,7 @@ void DetectThread::saveImage(CGrabElement *pElement)
 		}
 		if (FailureImage == pMainFrm->m_sRunningInfo.m_eSaveImageType)
 		{
-			QString strSavePath = QString(strSaveImagePath + "/image number%1_%2%3%4.bmp").arg(pElement->nImgSN).arg(time.hour()).arg(time.minute()).arg(time.second());
+			QString strSavePath = QString(strSaveImagePath + "/image number%1_%2%3%4_%5.bmp").arg(pElement->nImgSN).arg(time.hour()).arg(time.minute()).arg(time.second()).arg(grabImageCount);
 			pElement->myImage->mirrored().save(strSavePath);
 		}
 		if (FailureImageInCount == pMainFrm->m_sRunningInfo.m_eSaveImageType)
@@ -578,7 +559,7 @@ void DetectThread::saveImage(CGrabElement *pElement)
 			pMainFrm->m_sRunningInfo.m_mutexRunningInfo.lock();
 			if (pMainFrm->m_sRunningInfo.m_iSaveImgCount[iCamera] > 0)
 			{
-				QString strSavePath = QString(strSaveImagePath + "/image number%1_%2%3%4.bmp").arg(pElement->nImgSN).arg(time.hour()).arg(time.minute()).arg(time.second());
+				QString strSavePath = QString(strSaveImagePath + "/image number%1_%2%3%4_%5.bmp").arg(pElement->nImgSN).arg(time.hour()).arg(time.minute()).arg(time.second()).arg(grabImageCount);
 				pElement->myImage->mirrored().save(strSavePath);
 				pMainFrm->m_sRunningInfo.m_iSaveImgCount[iCamera]--;
 			}
@@ -665,9 +646,56 @@ void DetectThread::upDateState( QImage* myImage, int signalNo,double costTime,in
 	}else{
 		result = pMainFrm->m_sErrorInfo.m_vstrErrorType.at(iErrorType);
 	}
-	emit signals_upDateCamera(iCamera,1 );
-	emit signals_updateActiveImg(iCamera,signalNo,costTime,iErrorType);//更新剪切的图像显示
-	emit signals_updateImage(myImage, camera, imageSN, time, result, nMouldID,listErrorRectList, QueenID);
+	
+	if(pMainFrm->number_camera!=-1)
+	{
+		emit signals_upDateCamera(iCamera,1 );
+		emit signals_updateActiveImg(iCamera,signalNo,costTime,iErrorType);//更新剪切的图像显示
+		emit signals_updateImage(myImage, camera, imageSN, time, result, nMouldID,listErrorRectList, QueenID);
+	}else{
+		if(isShowPicture[signalNo]==0)
+		{
+			isShowPicture[signalNo]=1;
+			emit signals_upDateCamera(iCamera,1 );
+			if(pMainFrm->widget_carveSetting->image_widget->bIsCarveWidgetShow)
+			{
+				emit signals_updateActiveImg(iCamera,signalNo,costTime,iErrorType);//更新剪切的图像显示
+			}
+			emit signals_updateImage(myImage, camera, imageSN, time, result, nMouldID,listErrorRectList, QueenID);
+
+			if (pMainFrm->m_sRunningInfo.m_checkedNum != 0)
+			{
+				pMainFrm->m_sRunningInfo.m_iErrorCamRate[iCamera] = 1.0*pMainFrm->m_sRunningInfo.m_iErrorCamCount[iCamera]/pMainFrm->m_sRunningInfo.m_checkedNum * 100;
+			}
+			else
+			{
+				pMainFrm->m_sRunningInfo.m_iErrorCamRate[iCamera] = 0;
+			}
+			emit signals_updateCameraFailureRate();
+		}
+		if(pAlgCheckResult->nSizeError >0&&isShowPicture[signalNo]!=2)
+		{
+			isShowPicture[signalNo]=2;
+			emit signals_upDateCamera(iCamera,1 );
+			if(pMainFrm->widget_carveSetting->image_widget->bIsCarveWidgetShow==false)
+			{
+				emit signals_updateActiveImg(iCamera,signalNo,costTime,iErrorType);//更新剪切的图像显示
+			}
+			emit signals_updateImage(myImage, camera, imageSN, time, result, nMouldID,listErrorRectList, QueenID);
+
+			if (pMainFrm->m_sRunningInfo.m_checkedNum != 0)
+			{
+				pMainFrm->m_sRunningInfo.m_iErrorCamRate[iCamera] = 1.0*pMainFrm->m_sRunningInfo.m_iErrorCamCount[iCamera]/pMainFrm->m_sRunningInfo.m_checkedNum * 100;
+			}
+			else
+			{
+				pMainFrm->m_sRunningInfo.m_iErrorCamRate[iCamera] = 0;
+			}
+			emit signals_updateCameraFailureRate();
+		}
+	}
+	QImage temp=QImage(*myImage);
+	emit signals_updateMaxImageItem(temp,camera,imageSN,time,result,nMouldID,listErrorRectList,QueenID,grabImageCount);
 }
 
 void DetectThread::CountRuningData( int cameraNumber,int nGrabImageCount )
@@ -693,7 +721,6 @@ void DetectThread::CountRuningData( int cameraNumber,int nGrabImageCount )
 				nSpeedCount[cameraNumber] = 0;
 				pMainFrm->m_sRunningInfo.strSpeed = QString::number(nCurSpeed);
 				emit signals_showspeed(nCurSpeed);
-				
 			}
 		}
 	}
@@ -706,7 +733,7 @@ void DetectThread::KickOut( int glasswareNum, int isKickOut, int ioCardNum )
 	int comResult = -1;
 	if (pMainFrm->m_cCombine.ConbineResult(glasswareNum,pMainFrm->m_sSystemInfo.IOCardiCamCount[0],comResult))//图像都拍完后结果综合
 	{
-		for	(int i = glasswareNum-10; i<glasswareNum ;i++)
+		for	(int i = glasswareNum-5; i<glasswareNum ;i++)
 		{
 			if (!pMainFrm->m_cCombine.IsReject((i+256)%256))
 			{
@@ -724,11 +751,14 @@ void DetectThread::KickOut( int glasswareNum, int isKickOut, int ioCardNum )
 				//pMainFrm->m_mutexmSendResult.unlock();
 			}
 		}
-		for	(int i = glasswareNum; i<glasswareNum+10;i++)
+		for	(int i = glasswareNum; i<glasswareNum+5;i++)
 		{
 			pMainFrm->m_cCombine.SetReject(i%256,false);
-			isShowPicture[i%256] = 0;
-		}	
+		}
+		for(int ins = 0; ins < pMainFrm->m_sSystemInfo.iRealCamCount; ins++)
+		{
+			pMainFrm->pdetthread[ins]->isShowPicture[(glasswareNum+10)%256] = 0;
+		}
 		s_ResultInfo sResultInfo;
 		sResultInfo.tmpResult = comResult;
 		sResultInfo.nImgNo = glasswareNum;

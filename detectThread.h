@@ -3,7 +3,6 @@
 
 #include <QThread>
 #include "stateTool.h"
-#include "can.h"
 #pragma once 
 
 class DetectThread : public QThread
@@ -36,7 +35,7 @@ private:
 	void checkImage(CGrabElement* pElement,int iCheckMode);
 	bool getCheckResult(CGrabElement* pElement);
 	void GetModelDotData(CGrabElement *pElement);
-	void kickOutBad(int nSignalNo);
+	void kickOutBad(CGrabElement *);
 	void saveImage(CGrabElement* pElement);
 	void addErrorImageList(CGrabElement* pElement);
 	void upDateState(QImage* myImage, int signalNo,double costTime,int nMouldID,QList<QRect>, int);
@@ -79,6 +78,7 @@ public:
 	int isShowPicture[256];//Õº∆¨ «∑Òœ‘ æ
 	int grabImageCount;
 	bool m_lastResult;
+	QImage OvalityImage;
 };
 
 #endif // DetectThread_H

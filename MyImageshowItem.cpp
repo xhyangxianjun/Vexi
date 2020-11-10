@@ -220,7 +220,7 @@ void MyImageShowItem::paintEvent(QPaintEvent *event)
 	}
 	painter.drawText(0, 80, tr("Result:")+strResult);
 	
-	if (nMouldID.toInt() != -1 && nMouldID.toInt() != 0 )
+	if (nMouldID.toInt()<120 && nMouldID.toInt() > 0)
 	{
 		painter.drawText(0, 100, QString::fromLocal8Bit("Ä£ºÅ: ") + QString::number(nMouldID.toInt()));
 	}
@@ -633,7 +633,6 @@ bool MyImageShowItem::ShowAllPicButton(bool isMaxShow, bool isShow)
 			std::vector<QPushButton*>::iterator iter = m_vecCameraAllPic.begin();
 			for(; iter != m_vecCameraAllPic.end(); iter++)
 			{
-
 				if (*iter)
 				{
 					(*iter)->setVisible(isShow);
@@ -724,16 +723,10 @@ void MyImageShowItem::slots_updateMaxImageItem(QImage imageShown,QString camera,
 	{
 		if (listRect.length() > 0)
 		{
-			/*if(iCameraNo==0)
-			{
-			QString temps=QString("D:\\temp\\")+imageSN+"_"+QString::number(grabImageCount)+".bmp";
-			imageShown->save(temps);
-			}*/
 			m_vecCameraAllPic[singleCameraCount]->setStyleSheet("background-color: rgb(255, 0, 0);");
 		}
 		else
 		{
-			
 			m_vecCameraAllPic[singleCameraCount]->setStyleSheet("background-color: rgb(0,200, 0);");
 		}
 	}
@@ -761,7 +754,6 @@ void MyImageShowItem::SetButtonInitialStatus()
 		std::vector<QPushButton*>::iterator iter = m_vecCameraAllPic.begin();
 		for(; iter != m_vecCameraAllPic.end(); iter++)
 		{
-
 			if (*iter)
 			{
 				(*iter)->setStyleSheet("background-color: rgb(0xf0f0, 0xf0f0, 0xf0f0);");
@@ -845,10 +837,5 @@ void MyImageShowItem::updatapic()
 				m_LastAllCameraPic.push_front(m_PicDataTemp);
 			}
 		}
-		/*if(m_LastAllCameraPic.size()>10)
-		{
-		m_LastAllCameraPic.pop_back();
-		}
-		m_LastAllCameraPic.push_front(m_PicDataTemp);*/
 	}
 }

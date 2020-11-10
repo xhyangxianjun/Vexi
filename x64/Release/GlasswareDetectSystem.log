@@ -1,1 +1,102 @@
-﻿
+﻿Build started 2020/11/9 17:25:40.
+     1>Project "D:\GlasswareDetectSystem-VEXI-2.1.1.2\GlasswareDetectSystem\GlasswareDetectSystem.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /I.\GeneratedFiles /I. /IE:\4.8.2_64\include\qwt /IE:\4.8.2_64\include /I.\GeneratedFiles\Release /IE:\4.8.2_64\include\Qt3Support /I.\ /ID:\x64\Inc /IE:\4.8.2_64\include\QtGui /IE:\4.8.2_64\include\QtCore /I"D:\GlasswareDetectSystem-VEXI-2.1.1.2\Include" /Zi /nologo /W3 /WX- /Od /D UNICODE /D QT_DLL /D QT_QT3SUPPORT_LIB /D QT3_SUPPORT /D QWT_DLL /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t- /Zc:forScope /Fo"x64\Release\\" /Fd"x64\Release\vc100.pdb" /Gd /TP /errorReport:prompt mycameralabel.cpp
+         mycameralabel.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\GlasswareDetectSystem-VEXI-2.1.1.2\x64\Release\\GlasswareDetectSystem.exe" /NOLOGO /LIBPATH:E:\4.8.2_64\lib /LIBPATH:D:\x64\Lib qtmain.lib qwt.lib QtCore4.lib QtGui4.lib Qt3Support4.lib comdlg32.lib QtSql4.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Release\GlasswareDetectSystem.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"D:\GlasswareDetectSystem-VEXI-2.1.1.2\x64\Release\GlasswareDetectSystem.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\GlasswareDetectSystem-VEXI-2.1.1.2\x64\Release\GlasswareDetectSystem.lib" /MACHINE:X64 x64\Release\GlasswareDetectSystem.res
+         x64\Release\CameraOffLineMonitor.obj
+         x64\Release\camerasatuslabel.obj
+         x64\Release\cdetectspeed.obj
+         x64\Release\cerrorimagelist.obj
+         x64\Release\chistogram.obj
+         x64\Release\CIOCard.obj
+         x64\Release\cmyerrorlist.obj
+         x64\Release\cmygraphicsview.obj
+         x64\Release\CombineResult.obj
+         x64\Release\countset.obj
+         x64\Release\dhbasewidget.obj
+         x64\Release\moc_camerasatuslabel.obj
+         x64\Release\moc_cdetectspeed.obj
+         x64\Release\moc_cerrorimagelist.obj
+         x64\Release\moc_chistogram.obj
+         x64\Release\moc_CIOCard.obj
+         x64\Release\moc_cmygraphicsview.obj
+         x64\Release\moc_countset.obj
+         x64\Release\moc_dhbasewidget.obj
+         x64\Release\moc_myimageshowitem.obj
+         x64\Release\moc_MyLogText.obj
+         x64\Release\moc_mytableview.obj
+         x64\Release\moc_pieview.obj
+         x64\Release\moc_UserManegeWidget.obj
+         x64\Release\moc_userwidget.obj
+         x64\Release\moc_widgetwarning.obj
+         x64\Release\moc_widget_camera.obj
+         x64\Release\moc_Widget_CameraPosition.obj
+         x64\Release\moc_Widget_CarveImage.obj
+         x64\Release\moc_widget_count.obj
+         x64\Release\moc_widget_debug.obj
+         x64\Release\moc_widget_Ellipticity.obj
+         x64\Release\moc_widget_errortype.obj
+         x64\Release\moc_widget_image.obj
+         x64\Release\moc_widget_info.obj
+         x64\Release\moc_widget_Management.obj
+         x64\Release\moc_widget_mycellwidget.obj
+         x64\Release\moc_widget_pie.obj
+         x64\Release\moc_widget_plc.obj
+         x64\Release\moc_widget_sample.obj
+         x64\Release\moc_widget_test.obj
+         x64\Release\moc_widget_title.obj
+         x64\Release\mycameralabel.obj
+         x64\Release\MyHistogram.obj
+         x64\Release\myimageshowitem.obj
+         x64\Release\MyLogText.obj
+         x64\Release\mytableview.obj
+         x64\Release\pieview.obj
+         x64\Release\SingleCameraPic.obj
+         x64\Release\timescaledraw.obj
+         x64\Release\UserManegeWidget.obj
+         x64\Release\userwidget.obj
+         x64\Release\widgetwarning.obj
+         x64\Release\widget_camera.obj
+         x64\Release\Widget_CameraPosition.obj
+         x64\Release\widget_count.obj
+         x64\Release\widget_debug.obj
+         x64\Release\widget_Ellipticity.obj
+         x64\Release\widget_errortype.obj
+         x64\Release\widget_pie.obj
+         x64\Release\Widget_CarveImage.obj
+         x64\Release\Widget_CarveSetting.obj
+         x64\Release\detectThread.obj
+         x64\Release\clogFile.obj
+         x64\Release\qrc_glasswaredetectsystem.obj
+         x64\Release\moc_detectThread.obj
+         x64\Release\moc_glasswaredetectsystem.obj
+         x64\Release\moc_pushButton.obj
+         x64\Release\moc_Widget_CarveInfo.obj
+         x64\Release\moc_Widget_CarveSetting.obj
+         x64\Release\glasswaredetectsystem.obj
+         x64\Release\widget_image.obj
+         x64\Release\main.obj
+         x64\Release\myQueue.obj
+         x64\Release\pushButton.obj
+         x64\Release\reportingHook.obj
+         x64\Release\Widget_CarveInfo.obj
+         x64\Release\widget_info.obj
+         x64\Release\widget_Management.obj
+         x64\Release\widget_mycellwidget.obj
+         x64\Release\widget_plc.obj
+         x64\Release\widget_sample.obj
+         x64\Release\stateTool.obj
+         x64\Release\toolButton.obj
+         x64\Release\widget_test.obj
+         x64\Release\widget_title.obj
+            正在创建库 D:\GlasswareDetectSystem-VEXI-2.1.1.2\x64\Release\GlasswareDetectSystem.lib 和对象 D:\GlasswareDetectSystem-VEXI-2.1.1.2\x64\Release\GlasswareDetectSystem.exp
+         GlasswareDetectSystem.vcxproj -> D:\GlasswareDetectSystem-VEXI-2.1.1.2\x64\Release\GlasswareDetectSystem.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"D:\GlasswareDetectSystem-VEXI-2.1.1.2\x64\Release\\GlasswareDetectSystem.exe;#1" /manifest x64\Release\GlasswareDetectSystem.exe.intermediate.manifest
+     1>Done Building Project "D:\GlasswareDetectSystem-VEXI-2.1.1.2\GlasswareDetectSystem\GlasswareDetectSystem.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:06.65
